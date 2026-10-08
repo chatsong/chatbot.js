@@ -10,7 +10,7 @@
                 <button onclick="toggleChatsongBot()">×</button>
             </div>
             <div id="cb-messages">
-                <div class="b-msg">Hoi! Welkom op Chatsong.nl. Vraag me alles over de community, registreren, de 150-tekens release-regel, profielen, Flarum of de Live Music Room!</div>
+                <div class="b-msg">Hoi! Welkom op Chatsong.nl. Vraag me alles over de community, registreren, de 150-tekens release-regel, profielen, Flarum, de Live Music Room, de Instagram Story Generator of het Soundboard!</div>
             </div>
             <div id="cb-input-area">
                 <input type="text" id="cb-input" placeholder="Typ je vraag hier..." onkeypress="handleChatsongKey(event)">
@@ -38,11 +38,11 @@
     `;
     document.head.appendChild(style);
 
-    // Uitgebreide Kennisbank op basis van de volledige Chatsong Flarum Gids
+    // Uitgebreide Kennisbank inclusief nieuwe community-functies
     window.chatsongDB = [
         {
             k: ["wat is chatsong", "missie", "doel", "gratis", "payola", "2017", "roy", "verschil", "anders", "kind", "beginner", "doelgroep"],
-            a: "Chatsong.nl is in 2017 opgericht door Chatsong Roy met als belofte 'Real Music, Zero Bots!'. Het is een onafhankelijke, mensgedreven muziekcommunity zonder payola. In tegenstelling tot platforms met algoritmes, beoordelen echte mensen hier de muziek. Beginners, kinderen en ervaren artiesten zijn allemaal welkom!"
+            a: "Chatsong.nl is in 2017 opgericht door Chatsong Roy met als belofte 'Real Music, Zero Bots!'. Het is een onafhankelijke, mensgedreven muziekcommunity zonder payola. In tegenstelling tot platforms met algoritmes, beoordelen echte mensen hier de muziek."
         },
         {
             k: ["account", "registreren", "aanmaken", "inloggen", "sign up", "join free", "wachtwoord", "spotify", "login", "turnstile", "captcha"],
@@ -50,31 +50,43 @@
         },
         {
             k: ["taal", "language", "engels", "nederlands", "talen", "thema", "dark mode", "donker", "instellingen"],
-            a: "Bovenaan vind je de taal-dropdown met keuze uit 12 talen (waaronder Nederlands en Engels). De website schakelt automatisch over naar Dark Mode als je apparaat op een donker thema staat."
+            a: "Bovenaan vind je de taal-dropdown met keuze uit 12 talen. De website beschikt over uitgebreide CSS-variabelen die naadloos schakelen tussen een lichte en een donkere modus (dark mode)."
         },
         {
             k: ["profiel", "bio", "biografie", "avatar", "profielfoto", "social", "knoppen", "usercard", "settings"],
-            a: "Je UserCard is je visitekaartje. Je bio mag maximaal 200 tekens en 5 regels lang zijn (te bewerken via je profiel/Settings). Via Settings kun je ook je avatar uploaden en social media knoppen (Instagram, Spotify, SoundCloud, YouTube, TikTok) toevoegen."
+            a: "Je UserCard is je visitekaartje. Je bio mag maximaal 200 tekens en 5 regels lang zijn. Via Settings kun je ook je avatar uploaden en social media knoppen toevoegen."
         },
         {
             k: ["nummer", "muziek", "uploaden", "plaatsen", "post", "topic", "regels", "150 tekens", "link", "titel", "bare link", "seo"],
-            a: "⚠️ Belangrijke SEO-regel: Geen bare link dumping! Bij het plaatsen van een release (titelformaat: Artiestennaam - Nummer Titel [Genre]) ben je VERPLICHT om minimaal 150 tekens tekst of achtergrondverhaal toe te voegen. Omdat Google niet kan luisteren, wordt een topic met alleen een loske link zonder waarschuwing verwijderd."
+            a: "⚠️ Belangrijke SEO-regel: Geen bare link dumping! Bij het plaatsen van een release ben je VERPLICHT om minimaal 150 tekens tekst of achtergrondverhaal toe te voegen, omdat Google niet kan luisteren."
         },
         {
             k: ["menu", "dropdown", "navigatie", "snelkoppeling", "mobiel", "balk", "onderbalk", "leaderboard", "ranglijst", "blog", "playlist", "top 40", "musicians"],
-            a: "Het hoofdmenu ('All Discussions') bevat de blog, playlist submissions en Top 40. Bovenin en onderin op mobiel vind je snelle knoppen naar Home, Categories, Search, Notifications, Profile, het Leaderboard ([🏆 Leaderboard]) en de artiestengids ([🎸 Musicians])."
+            a: "Het hoofdmenu bevat de blog, playlist submissions en Top 40. Via de navigatie vind je onder andere het Leaderboard en de artiestengids."
         },
         {
             k: ["reageren", "taggen", "@", "upvote", "punten", "gastenboek", "guestbook", "collab request", "citeren", "quote", "flarum"],
-            a: "In Flarum reageer je via 'Reply', citeer je door tekst te selecteren en op 'Quote' te klikken, en tag je anderen met @gebruikersnaam. Upvotes geven punten voor het Leaderboard. Op elk profiel vind je een openbaar gastenboek ('Post a message ✉') voor collab requests."
+            a: "In Flarum reageer je via 'Reply' en tag je anderen met @gebruikersnaam. Upvotes geven punten voor het Leaderboard. Op elk profiel vind je bovendien een openbaar gastenboek voor collab requests."
         },
         {
-            k: ["live music room", "chat", "ruimte", "vibe", "mood", "support", "team", "soundboard"],
-            a: "Onderaan het scherm zweeft de Live Music Room waar je live kunt chatten en muzieklinks (SoundCloud/YouTube/Spotify) direct kunt afspelen. Bovendien kun je via het Vibe Panel je stemming (Mood), gedachten (Thoughts) of supportvragen (Support) delen."
+            k: ["live music room", "chat", "ruimte", "vibe", "mood", "support", "team", "soundboard", "supabase", "embeds", "spotify", "soundcloud", "youtube", "beatport", "mixcloud"],
+            a: "Onderaan het scherm zweeft de Live Music Chatroom (gekoppeld aan Supabase). Hier kun je live chatten, @-vermeldingen gebruiken en direct muziekspelers embedden (Spotify, SoundCloud, YouTube, Beatport, Mixcloud). Via het Vibe Panel en Soundboard deel je je stemming (mood), gedachten of supportvragen[cite: 13]."
         },
         {
             k: ["composer", "schrijven", "poll", "peiling", "draft", "concept", "markdown", "afbeeldingen"],
-            a: "In de Flarum composer kun je Markdown gebruiken, afbeeldingen uploaden via fof-upload, peilingen (polls) tot 10 opties toevoegen en concepten automatisch laten opslaan onder Drafts."
+            a: "In de Flarum composer kun je Markdown gebruiken, afbeeldingen uploaden via fof-upload, peilingen tot 10 opties toevoegen en concepten automatisch laten opslaan."
+        },
+        {
+            k: ["instagram story", "generator", "visual", "verhalen"],
+            a: "Met de ingebouwde Instagram Story Generator kun je forumberichten automatisch omzetten in een deelbare visual voor je Instagram Stories[cite: 13]."
+        },
+        {
+            k: ["a-z", "filterbar", "artiestenmap", "filter"],
+            a: "De A-Z Filterbar is een handige navigatiebalk binnen de artiestenmap om snel en alfabetisch door alle onafhankelijke musici te bladeren[cite: 13]."
+        },
+        {
+            k: ["link fixer", "pre-save", "distrokid", "socials"],
+            a: "De Link- en Pre-save Fixer detecteert automatisch ruwe of niet-werkende links (zoals DistroKid pre-saves en social media) en zet deze om in nette, visuele kaarten[cite: 13]."
         }
     ];
 
@@ -97,7 +109,7 @@
         const q = text.toLowerCase();
         input.value = '';
 
-        let bestAns = "Dat is een goede vraag over Flarum of Chatsong! Bekijk de gids op de website of vraag het gerust in de Live Music Room onderaan de pagina. Je kunt me vragen over registreren, muziek plaatsen (min. 150 tekens!), profielen, upvotes en meer!";
+        let bestAns = "Dat is een goede vraag over Flarum of Chatsong! Bekijk de gids op de website of vraag het gerust in de Live Music Room onderaan de pagina. Je kunt me vragen over registreren, de Live Music Chatroom, het Soundboard, de Instagram Story Generator en meer![cite: 13]";
         let highestScore = 0;
 
         window.chatsongDB.forEach(item => {
