@@ -5,17 +5,17 @@
         const container = document.createElement('div');
         container.id = 'chatsong-bot-container';
         container.innerHTML = `
-            <button id="cb-toggle-btn" onclick="toggleChatsongBot()">💬 Chatsong AI Hulp</button>
+            <button id="cb-toggle-btn" onclick="toggleChatsongBot()">💬 Chatsong Hulp</button>
             <div id="cb-window" style="display:none;">
                 <div id="cb-header">
-                    <span>Chatsong Assistant 🎵</span>
+                    <span>Chatsong Assistent 🎵</span>
                     <button onclick="toggleChatsongBot()">×</button>
                 </div>
                 <div id="cb-messages">
-                    <div class="b-msg">Hoi! Welkom op Chatsong.nl. Ik ben je forumassistent en weet alles over profielen, usercards, mobile tabs, de composer, uploaden, regels en navigatie. Vraag me gerust alles! 🎵</div>
+                    <div class="b-msg">Hoi! Welkom op Chatsong. Vraag me gerust alles in je eigen woorden (bijv. "hoe zet ik een nummer online", "waar vind ik mn profiel" of "wat mag wel/niet"). Ik help je op weg! 🎵</div>
                 </div>
                 <div id="cb-input-area">
-                    <input type="text" id="cb-input" placeholder="Typ je vraag over het forum..." onkeypress="handleChatsongKey(event)">
+                    <input type="text" id="cb-input" placeholder="Typ hier je vraag..." onkeypress="handleChatsongKey(event)">
                     <button onclick="sendChatsongMsg()">→</button>
                 </div>
             </div>
@@ -47,76 +47,40 @@
         initChatsongBot();
     }
 
-    // 🎵 ALLESOMVATTENDE KENNISBANK: PROFIEL, USERCARD, MOBILE TABS, COMPOSER, TOPICS & NAVIGATIE
+    // 🎵 GIGANTISCHE LEKEN-KENNISBANK (VOL DATING MET DAGELIJKS TAALGEBRUIK)
     window.chatsongDB = [
-        // --- PROFIEL & SETTINGS ---
+        // PROFIEL & ACCOUNT (LEKEN-TAAL)
         {
-            k: ["hoe kom ik bij profiel", "waar is mijn profiel", "profiel openen", "settings vinden", "instellingen"],
-            a: "👤 Klik rechtsboven (of in je mobile menu) op je **avatar (profielfoto)** → Kies **'Settings'**. Daar vind je al je account-instellingen en je **Profile** tab om je gegevens aan te passen."
+            k: ["profiel", "account", "naam", "foto", "avatar", "bio", "instellingen", "settings", "ikzelf", "mijzelf", "wie ben ik", "wijzigen", "aanpassen"],
+            a: "👤 **Je profiel instellen:** Klik rechtsboven op je ronde profielfoto (avatar) en kies **'Settings'**. Daar kun je:\n- Je **Profile** tab openen om een korte bio (max 200 tekens) te schrijven.\n- Je profielfoto aanpassen.\n- Je social media knoppen (Instagram, Spotify, TikTok, SoundCloud) toevoegen.\n- Klik onderaan op **'Save'** om het op te slaan!"
         },
         {
-            k: ["wat kan ik met mijn profiel", "profiel opties", "wat staat er op profiel"],
-            a: "📋 Op je profiel zie je jouw bio, avatar, social media links, je gastenboek waar anderen berichten achterlaten, en je 'Activity'-tab met al je gestarte discussies en reacties."
-        },
-        {
-            k: ["hoe schrijf ik een bio", "biografie", "wat zet ik in bio", "tekst op profiel"],
-            a: "✍️ Ga naar Settings → Profile. In het veld 'Bio' typ je een korte omschrijving van jezelf (max 200 tekens, ongeveer 5 regels). Vertel iets over je muziekstijl of instrumenten!"
-        },
-        {
-            k: ["hoe save ik de tekst", "opslaan", "save knop", "wijzigingen opslaan", "bewaren"],
-            a: "💾 Klaar met het aanpassen van je bio of profiel? Scroll helemaal naar beneden op de pagina en klik op de knop **'Save'** of **'Save Changes'**. Je wijzigingen worden direct opgeslagen."
-        },
-        {
-            k: ["social media profielen invullen", "instagram link", "spotify toevoegen", "soundcloud", "tiktok", "links op profiel"],
-            a: "📱 In Settings → Profile, scroll naar het kopje **'Social Media'**. Plak daar de volledige URL's van je Instagram, YouTube, TikTok, Spotify of SoundCloud profielen en klik op Save."
+            k: ["usercard", "visitekaartje", "kaartje", "popup", "wie is dit"],
+            a: "🪪 **UserCard:** Dat is het handige pop-up visitekaartje dat tevoorschijn komt zodra je op iemands naam of foto klikt. Je ziet daar direct iemands bio en social media kanalen."
         },
 
-        // --- USERCARD ---
+        // MUZIEK POSTEN & REGELS (LEKEN-TAAL)
         {
-            k: ["usercard", "wat is een usercard", "wat betekent usercard", "waar vind ik die usercard", "visitekaartje"],
-            a: "🪪 Je **UserCard** is jouw digitale visitekaartje op Chatsong! Als iemand op jouw gebruikersnaam of avatar klikt, verschijnt deze pop-upkaart met je bio, avatar en social media links."
+            k: ["nummer", "liedje", "track", "muziek", "posten", "delen", "uploaden", "plaatsen", "link", "bare link", "150", "tekens", "waarom", "fout", "verwijderd", "regels"],
+            a: "⚠️ **Muziek posten & de regels:**\n1. Ga naar de juiste categorie (bijv. *Releases* of *Feedback*) en klik op **'Start Discussion'**.\n2. **Belangrijke regel:** Plaats nooit zomaar een kale link ('bare link'). \n3. Zet altijd de titel in het formaat: *Artiest - Titel [Genre]*.\n4. Schrijf **minimaal 150 tekens** aan tekst/uitleg over je track.\n5. Het forum maakt er daarna automatisch een mooie visuele speler van!"
         },
 
-        // --- MOBILE TAB & QUICK NAV ---
+        // BERICHTEN TYPEN & EDITOR (LEKEN-TAAL)
         {
-            k: ["mobile tab", "mobiele navigatie", "cs-mobile-quick-nav", "snelle knoppen onderin", "mobiel menu"],
-            a: "📱 De mobile quick-nav bar onderaan je scherm is speciaal gemaakt voor mobiele gebruikers. Je vindt er snelle knoppen om direct naar de Home, Categorieën, Zoekbalk, Notificaties en je Profiel te springen!"
+            k: ["typen", "schrijven", "tekst", "klaar", "post", "verzenden", "knop", "icoon", "plaatje", "foto toevoegen", "vet", "schuin", "opmaak"],
+            a: "💬 **Bericht schrijven:**\n- Als je klaar bent met typen in het tekstvak, klik je onderaan op de knop **'Post'** of **'Publish'** om het online te zetten.\n- Onderin de balk vind je handige knopjes om tekst **vet** of *schuin* te maken, of om een plaatje/foto van je computer toe te voegen."
         },
 
-        // --- COMPOSER & POSTEN (ICONS, UPLOAD, KLAAR) ---
+        // NAVIGEREN & WEGWIJS (LEKEN-TAAL)
         {
-            k: ["hoe start ik een topic", "nieuwe discussie", "start discussion", "onderwerp beginnen", "bericht maken"],
-            a: "💬 Klik op een categorie (bijv. Releases of Feedback) en klik op de knop **'Start Discussion'**. Vul een duidelijke titel in en type je bericht in de tekstbox."
-        },
-        {
-            k: ["wat druk ik op als ik klaar ben", "posten", "publiceren", "verzenden", "klaar met typen", "publiceer knop"],
-            a: "🚀 Ben je klaar met typen en controleren? Kijk onderaan de tekstbox (composer) en klik op de knop **'Post'** of **'Publish'**. Je discussie of reactie staat direct online!"
-        },
-        {
-            k: ["iconen onderin de tekst", "editor knoppen", "wat betekent dat icoon", "vet", "schuin", "link icoon", "formatting"],
-            a: "🔤 Onderin of bovenin de tekstbox zie je handige knoppen: **B** = vet, *I* = schuin, ketting-icoon = link invoegen, en het foto-icoon = afbeelding uploaden. Hiermee maak je je tekst mooi op!"
-        },
-        {
-            k: ["wat gebeurt er als ik op upload druk", "hoe upload ik", "foto toevoegen", "afbeelding uploaden", "bestand uploaden"],
-            a: "🖼️ Als je op het upload/foto-icoon drukt, kun je een afbeelding (zoals een trackcover of screenshot van max 5MB) kiezen vanaf je apparaat. Het forum plaatst automatisch de juiste code in je tekst zodat de foto zichtbaar wordt."
-        },
-        {
-            k: ["nummer posten", "release posten", "150 tekens", "bare link", "geen kale link", "muziek delen"],
-            a: "⚠️ **Belangrijke regel bij Releases:** Plaats nooit een 'bare link' (alleen een kale link). Gebruik het formaat *Artiest - Titel [Genre]* en schrijf **minimaal 150 tekens aan context/verhaal** erbij! De ingebouwde Link Fixer maakt er daarna automatisch een mooie visuele kaart van."
+            k: ["waar", "menu", "zoeken", "vind", "weg", "kwijt", "home", "categorie", "dropdown", "mobiel", "balk", "onderin"],
+            a: "🧭 **Wegwijs op het forum:**\n- **Navigatie:** Gebruik het menu of de uitklapmenu's (dropdowns) om te filteren op recent of populair.\n- **Zoeken:** Klik bovenaan op het vergrootglas-icoon om te zoeken naar artiesten of tags (zoals `#Collab`).\n- **Mobiel:** De balk onderin je scherm geeft je directe knoppen naar de homepagina, zoekbalk en je profiel."
         },
 
-        // --- NAVIGATIE & DROPDOWNS ---
+        // CHATTEN & CONTACT (LEKEN-TAAL)
         {
-            k: ["hoe navigeer ik op het forum", "navigatie", "waar vind ik alles", "menu gebruiken", "waar is wat"],
-            a: "🧭 Bovenin of in het zijmenu vind je het hoofdmenu. Je kunt schakelen tussen categorieën (Releases, Feedback, Collab, Support, Live Room), de zoekbalk gebruiken of je notificaties bekijken."
-        },
-        {
-            k: ["dropdowns", "wat betekenen dropdowns", "uitklapmenu", "filteren", "sorteren", "talen menu"],
-            a: "📋 Dropdowns zijn uitklapmenu's (pijltjes naar beneden). Je gebruikt ze om te sorteren op 'Recent' of 'Popular', om categorieën te kiezen, of om de taal van het forum te wijzigen (12+ talen beschikbaar)."
-        },
-        {
-            k: ["zoeken", "search", "hoe vind ik iets", "zoekbalk", "vergrootglas"],
-            a: "🔍 Klik bovenaan op het **vergrootglas-icoon** (of de zoekbalk). Typ een artiestennaam, onderwerp of tag in (bijv. `#Releases`) om direct te vinden wat je zoekt."
+            k: ["chat", "praten", "live", "room", "bericht", "dm", "privé", "collab", "samenwerken"],
+            a: "🎵 **Contact & Extra's:**\n- **Live Music Room:** Om direct met andere leden te kletsen.\n- **Privéberichten (DM):** Klik op iemands profiel of het envelopje om een persoonlijk bericht te sturen.\n- **Vraag & Aanbod:** Voor het zoeken naar producers, mix/master of collabs."
         }
     ];
 
@@ -130,7 +94,7 @@
         if (e.key === 'Enter') window.sendChatsongMsg();
     };
 
-    // 🧠 SLIMME SCORE-FUNCTIE VOOR EXACTE MATCHING ZONDER FOUTEN
+    // 🧠 SLIMME LEKEN-MATCHING MET EEN ULTIEME FALLBACK
     window.sendChatsongMsg = function() {
         const input = document.getElementById('cb-input');
         const messages = document.getElementById('cb-messages');
@@ -142,7 +106,10 @@
         messages.scrollTop = messages.scrollHeight;
 
         const userQuery = text.toLowerCase();
-        let bestAnswer = "Dat is een goede vraag! 🤔 Probeer te vragen over: profielen, usercards, mobile tabs, de composer, uploaden, topics starten, of navigatie op het forum. / Good question! Try asking about profiles, usercards, composer, uploading, topics, or navigation.";
+        const userWords = userQuery.split(/\s+/).filter(w => w.length > 1);
+
+        // Ultieme leken-fallback als ze iets heel geks typen
+        let bestAnswer = "Ik begrijp je vraag niet helemaal, maar geen paniek! Als leek kun je hier op het forum het beste even letten op:\n• **Profiel instellen:** Klik rechtsboven op je foto → Settings.\n• **Muziek delen:** Gebruik een titel + minstens 150 tekens uitleg (geen kale link).\n• **Hulp nodig?** Vraag het gerust even in de chat of aan een moderator! 🎵";
         let highestScore = 0;
 
         if (window.chatsongDB && Array.isArray(window.chatsongDB)) {
@@ -151,9 +118,13 @@
                 item.k.forEach(keyword => {
                     const kw = keyword.toLowerCase();
                     if (userQuery.includes(kw)) {
-                        // Hoe langer het trefwoord, hoe specifieker de match
-                        score += kw.length * 3;
+                        score += kw.length * 4;
                     }
+                    userWords.forEach(word => {
+                        if (kw.includes(word) || word.includes(kw)) {
+                            score += Math.min(kw.length, word.length) * 2;
+                        }
+                    });
                 });
 
                 if (score > highestScore) {
@@ -164,7 +135,7 @@
         }
 
         setTimeout(() => {
-            messages.innerHTML += `<div class="b-msg">${escapeHtml(bestAnswer)}</div>`;
+            messages.innerHTML += `<div class="b-msg" style="white-space: pre-line;">${escapeHtml(bestAnswer)}</div>`;
             messages.scrollTop = messages.scrollHeight;
         }, 300);
     };
