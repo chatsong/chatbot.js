@@ -10,7 +10,7 @@
                 <button onclick="toggleChatsongBot()">×</button>
             </div>
             <div id="cb-messages">
-                <div class="b-msg">Hoi! Welkom op Chatsong.nl. Vraag me alles over je account, profiel, hoe je posts maakt, Flarum forum regels, tags, upvotes en meer! 🎵 / Hi! Ask me about your account, profile, posting, forum tags, and more! 💬</div>
+                <div class="b-msg">Hoi! Welkom op Chatsong.nl. Vraag me alles over je account, profiel, hoe je posts maakt, Flarum forum regels, tags, upvotes, vraag & aanbod, extensies en meer! 🎵 / Hi! Ask me about your account, profile, posting, Flarum rules, tags, upvotes, questions & offers, extensions and more! 🎵</div>
             </div>
             <div id="cb-input-area">
                 <input type="text" id="cb-input" placeholder="Typ je vraag hier / Type your question..." onkeypress="handleChatsongKey(event)">
@@ -23,9 +23,9 @@
     const style = document.createElement('style');
     style.innerHTML = `
         #chatsong-bot-container { position: fixed; bottom: 20px; right: 20px; z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        #cb-toggle-btn { background: #8a2be2; color: #fff; border: none; padding: 12px 18px; border-radius: 30px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s; }
+        #cb-toggle-btn { background: #8a2be2; color: #fff; border: none; padding: 12px 18px; border-radius: 30px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s ease; }
         #cb-toggle-btn:hover { transform: scale(1.05); }
-        #cb-window { position: absolute; bottom: 60px; right: 0; width: 380px; height: 540px; background: #ffffff; border: 1px solid #ddd; border-radius: 12px; display: flex; flex-direction: column; box-shadow: 0 8px 24px rgba(0,0,0,0.25); overflow: hidden; }
+        #cb-window { position: absolute; bottom: 60px; right: 0; width: 380px; height: 540px; background: #ffffff; border: 1px solid #ddd; border-radius: 12px; display: flex; flex-direction: column; box-shadow: 0 10px 28px rgba(0,0,0,0.25); overflow: hidden; }
         #cb-header { background: #1a1a1a; color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 14px; }
         #cb-header button { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; }
         #cb-messages { flex: 1; padding: 12px; overflow-y: auto; font-size: 13px; display: flex; flex-direction: column; gap: 10px; background: #f9f9f9; }
@@ -38,205 +38,241 @@
     `;
     document.head.appendChild(style);
 
-    // 🎵 COMPLETE KENNISBANK: ACCOUNT + PROFIEL + FORUM + POSTING + COMMUNITY
+    // Flarum + Chatsong forum knowledge base: account, profile, discussion flow, extensions, question & offer flow
     window.chatsongDB = [
-        // ========== ACCOUNT & AANMELDEN ==========
         {
-            k: ["account", "registreren", "sign up", "inloggen", "login", "hoe aanmaken", "new account", "create account"],
-            a: "📝 Naar de homepage en klik **'Join Free'**. Vul in: e-mail, gebruikersnaam, wachtwoord, doorloop Turnstile-captcha, klaar! Je kunt ook via Spotify inloggen. / 📝 Click **'Join Free'** on homepage, enter email, username, password, complete captcha, done! Or log in via Spotify."
+            k: ["flarum", "forum", "hoe werkt forum", "wat is flarum", "forum uitleg", "hoe werkt dit", "welkom"],
+            a: "💬 Dit forum werkt met Flarum. Je kunt hier discussies starten, vragen stellen, feedback krijgen, tags gebruiken, upvoten, volgen, reageren en deelnemers helpen. Klik een categorie, kies 'Start Discussion', vul titel + tekst in en publiceer."
         },
         {
-            k: ["wachtwoord", "password vergeten", "forgot", "reset", "herstellen"],
-            a: "🔑 Op de login-pagina: klik 'Forgot Password?', voer je e-mail in, controleer je inbox voor reset-link. Klik de link en voer nieuw wachtwoord in. Probleem? Vraag het in Live Music Room! / 🔑 Click 'Forgot Password?' on login page, enter email, check inbox for reset link, set new password."
+            k: ["vraag en aanbod", "vragen en aanbod", "vraag & aanbod", "aanbod", "vraag", "verkoop", "koop", "service", "opdracht", "collab", "samenwerking"],
+            a: "🧾 In Vraag & Aanbod kun je iets vragen of aanbieden: een service, collab, track, mix, mastering, promotie, opdracht of hulp. Klik op de juiste categorie, maak een duidelijke titel, vertel wat je wilt, en voeg eventueel tags zoals #Collab #Service #Feedback toe."
         },
         {
-            k: ["spotify login", "social login", "verbinden", "connect"],
-            a: "🎵 Bij 'Join Free': klik **'Login with Spotify'**, autoriseer Chatsong, klaar! Je profiel is direct actief. Super snel! / 🎵 Click 'Login with Spotify' at signup, authorize Chatsong, done! Your profile is instantly active."
-        },
-
-        // ========== PROFIEL & INSTELLINGEN ==========
-        {
-            k: ["profiel", "profile", "bio", "biografie", "bewerken", "edit profile"],
-            a: "👤 **Klik je avatar** (rechtsboven) → **'Settings'** → **'Profile'**. Daar wijzig je: bio (max 200 tekens, 5 regels), avatar, beschrijving, links. Als je klaar bent, klik 'Save'. / 👤 Click your avatar (top right) → 'Settings' → 'Profile'. Edit: bio (max 200 chars), avatar, description, links. Click 'Save'."
+            k: ["account", "registreren", "sign up", "inloggen", "login", "aanmaken", "create account", "new account"],
+            a: "📝 Ga naar de homepage en klik op 'Join Free'. Vul je e-mail, gebruikersnaam en wachtwoord in, voltooi de captcha en je account is klaar. Je kunt ook met Spotify inloggen."
         },
         {
-            k: ["avatar", "profielfoto", "foto", "profile picture", "change avatar"],
-            a: "🖼️ Settings → Profile → klik de ronde foto-placeholder. Upload je foto van je computer of plak een URL. Voorkeur: 400x400px, rond formaat. 'Save' en klaar! / 🖼️ Settings → Profile → click photo placeholder, upload from computer or paste URL. Best: 400x400px, round format. 'Save'."
+            k: ["wachtwoord", "password", "forgot", "reset", "vergeten", "herstellen"],
+            a: "🔑 Op de loginpagina klik je op 'Forgot Password?', vul je e-mailadres in, controleer je inbox en volg de reset-link. Daarna kun je een nieuw wachtwoord instellen."
         },
         {
-            k: ["gastenboek", "guestbook", "guestbook bericht", "post a message", "comment on profile"],
-            a: "💌 Op iemands **profiel**: scroll naar beneden, klik **'Post a Message ✉'**, typ je bericht, post! Berichten zijn openbaar, iedereen ziet ze. Perfecte plek voor collab-requests! / 💌 On someone's profile: scroll down, click 'Post a Message ✉', type, post! Public guestbook. Great for collab requests!"
+            k: ["profiel", "profile", "bio", "biografie", "bewerken", "edit profile", "avatar", "foto", "profile picture"],
+            a: "👤 Klik rechtsboven op je avatar en ga naar 'Settings' → 'Profile'. Daar kun je bio, avatar, beschrijving, links en social media toevoegen. Klik daarna op 'Save'."
         },
         {
-            k: ["social media", "instagram", "youtube", "tiktok", "spotify", "soundcloud", "links toevoegen", "knoppen"],
-            a: "📱 Settings → Profile → scroll naar 'Social Media'. Voeg links toe voor Instagram, YouTube, TikTok, Spotify, SoundCloud, enz. Klanten kunnen je daar direct bereiken! / 📱 Settings → Profile → scroll to 'Social Media'. Add Instagram, YouTube, TikTok, Spotify, SoundCloud links. Easy access!"
+            k: ["gastenboek", "guestbook", "bericht op profiel", "post a message", "comment on profile"],
+            a: "💌 Open iemand zijn profiel, scroll naar beneden en klik 'Post a Message'. Typ je bericht, laat het zien en plak het. Dit is handig voor collab-requests en korte welkomsberichten."
         },
         {
-            k: ["taal", "language", "nederlands", "engels", "12 languages", "wisselen"],
-            a: "🌍 **Bovenaan** de pagina: taal-dropdown (12+ talen beschikbaar). Kies Nederlands of Engels of je favoriete taal. Direct van toepassing! / 🌍 Top of page: language dropdown (12+ languages). Choose Dutch, English, or your favorite language. Instant!"
+            k: ["discussie", "topic", "thread", "start discussion", "nieuw topic", "nieuw forum bericht", "hoe maak ik een post", "post starten", "new thread"],
+            a: "💬 Klik eerst een categorie zoals Releases, Feedback, Support of Vraag & Aanbod. Daarna klik je op 'Start Discussion'. Vul een duidelijke titel in, schrijf je bericht en klik op 'Post'."
         },
         {
-            k: ["dark mode", "donker", "thema", "theme", "nacht modus"],
-            a: "🌙 Chatsong ondersteunt automatische Dark Mode gebaseerd op je apparaatinstellingen (Windows/Mac). Systeem → Instellingen → Donker/Licht → Dark Mode wordt automatisch geactiveerd. Gemak! / 🌙 Chatsong supports automatic Dark Mode based on your device settings. System → Settings → Dark Mode auto-activates."
+            k: ["titel", "title", "discussie naam", "goede titel", "hoe noem ik het"],
+            a: "📋 Een goede titel is kort, duidelijk en specifiek. Voorbeeld: 'Feedback op mijn nieuwe release - House/Deep' of 'Collab gezocht voor vocal mix'. Vermijd vage titels zoals 'Hoi' of 'Help'."
         },
         {
-            k: ["notificaties", "notifications", "alerts", "meldingen", "e-mail alerts"],
-            a: "🔔 Settings → Notifications. Hier kies je: 'Someone mentions you', 'Reply to my post', 'New message', 'Post on guestbook', etc. Kies In-App, E-mail, of beide. Jouw controle! / 🔔 Settings → Notifications. Choose: 'Mentions you', 'Reply to post', 'Message', 'Guestbook post', etc. In-app, email, or both!"
-        },
-
-        // ========== FORUM BASICS: DISCUSSIES EN POSTS ==========
-        {
-            k: ["discussie", "topic", "thread", "post", "how to make", "hoe maak", "starten", "start discussion", "new thread"],
-            a: "💬 **Stap 1:** Klik een **categorie** (bijv. Releases, Feedback, Support). **Stap 2:** Klik grote **'Start Discussion'** knop. **Stap 3:** Vul in: titel, optionele tags (#Releases #Feedback), en je bericht. **Stap 4:** Klik **'Post'**. Klaar! / 💬 **Step 1:** Click a category (Releases, Feedback, Support). **Step 2:** Click 'Start Discussion'. **Step 3:** Enter: title, optional tags, message. **Step 4:** Click 'Post'. Done!"
+            k: ["releases", "release posten", "nummer posten", "track posten", "muziek delen", "150 tekens", "bare link", "upload"],
+            a: "⚠️ Bij een releasepost is het belangrijk: geen bare link plaatsen zonder context. Gebruik een duidelijke titel en geef minimaal 150 tekens context: wat is het nummer, welke stijl, wat is de bedoeling, welk verhaal zit erin."
         },
         {
-            k: ["titel", "title", "discussie naam", "discussion name", "hoe goede titel"],
-            a: "📋 **Goede titel:** Duidelijk, kort (5-10 woorden), beschrijf het onderwerp. ❌ SLECHT: 'Hoi'. ✅ GOED: 'Feedback op mijn new track - Electronic/House'. ✅ GOED: 'Samenwerking gezocht - Drums & Bass Producer'. Goeie titel = meer reacties! / 📋 **Good title:** Clear, short (5-10 words), describes topic. ❌ BAD: 'Hi'. ✅ GOOD: 'Feedback on my new track - Electronic/House'. ✅ GOOD: 'Collab wanted - Drums & Bass Producer'. Better title = more replies!"
+            k: ["link fixer", "pre-save", "spotify link", "soundcloud", "youtube", "distrokid", "visual card"],
+            a: "🔗 Plak gewoon je Spotify-, SoundCloud-, YouTube- of DistroKid-link in je post. De ingebouwde Link Fixer maakt daar automatisch een visuele kaart van, zodat het er netjes uit ziet in de discussie."
         },
         {
-            k: ["nummer posten", "release posten", "track posten", "muziek delen", "150 tekens", "bare link", "upload"],
-            a: "⚠️ **BELANGRIJKSTE REGEL:** Bij releases (nummers/tracks): **GEEN BARE LINKS!** Formaat: **Artiestennaam - Nummernaam [Genre]**. VERPLICHT: min. 150 tekens verhaal/context toevoegen. Google kan niet luisteren, dus we nodig beschrijving voor SEO! Anders wordt post verwijderd. / ⚠️ **KEY RULE:** No bare links! Format: **Artist - Song Title [Genre]**. MUST add 150+ characters of story/context. Google can't listen, we need descriptions for SEO! Post removed otherwise."
+            k: ["tags", "tag", "label", "hashtag", "filter", "categorie tags", "gevonden"],
+            a: "🏷️ Tags helpen om soortgelijke posts te vinden. Klik op tags zoals #Releases, #Feedback, #Collab of #Support om alle posts met hetzelfde thema te zien. Gebruik relevante tags zodat je meer juiste reacties krijgt."
         },
         {
-            k: ["link fixer", "pre-save", "automatisch", "visual card", "distrokid", "spotify link"],
-            a: "🔗 Plak gewoon je **Spotify/SoundCloud/DistroKid/YouTube-link** in je post. De ingebouwde **Link Fixer** herkent het AUTOMATISCH en maakt er een mooie visuele kaart van. Super! Geen extra werk nodig. / 🔗 Just paste your **Spotify/SoundCloud/DistroKid/YouTube link**. The built-in **Link Fixer** automatically recognizes it and converts to a beautiful visual card. Awesome! No extra work."
+            k: ["categorie", "category", "forum categories", "onderdeel", "section", "releases categorie", "feedback categorie", "support categorie", "collab categorie"],
+            a: "📂 De belangrijkste categorieën zijn meestal: Releases, Feedback, Collab, Support, Offtopic en Vraag & Aanbod. Kies de juiste plek zodat je post beter gevonden wordt en de juiste mensen reageren."
         },
         {
-            k: ["reageren", "reply", "antwoord", "reactie", "respond", "how to reply", "how to comment"],
-            a: "↩️ **Scroll naar beneden** in een discussie. Klik **'Reply'** boton. Typ je antwoord in de text box. Klik **'Post'**. Klaar! Je reactie is zichtbaar voor iedereen. / ↩️ **Scroll down** in a discussion. Click the **'Reply'** button. Type your answer. Click **'Post'**. Done! Your reply is visible."
+            k: ["zoeken", "search", "vinden", "opzoeken", "zoekbalk", "zoek"],
+            a: "🔍 Gebruik de zoekbalk bovenin. Zo kun je op artiestnamen, tags, woorden of thema's zoeken. Je kunt ook sorteren op Recent, Top of Unanswered om sneller geschikte discussies te vinden."
+        },
+        {
+            k: ["reageren", "reply", "antwoord", "reactie", "comment", "how to comment", "respond"],
+            a: "↩️ Scroll naar beneden in een discussie en klik 'Reply'. Typ je antwoord, en klik vervolgens op 'Post'. Zo reageer je op een topic of op een specifieke reactie."
         },
         {
             k: ["citeren", "quote", "select text", "quoteren", "antwoord aan persoon"],
-            a: "📋 Selecteer de **tekst** die je wilt citeren → Klik **'Quote'**. De tekst verschijnt gemarkeerd in je reply-box. Je kunt **meerdere quotes** in één bericht stapelen voor duidelijke discussie. Heel handig! / 📋 Select the text you want to quote → Click 'Quote'. Text appears highlighted in reply-box. You can stack **multiple quotes** in one message. Very useful!"
-        },
-
-        // ========== FORUM: TAGS & CATEGORIEËN ==========
-        {
-            k: ["tag", "tags", "label", "hashtag", "#", "filtren", "categories"],
-            a: "🏷️ **Bij discussies:** bovenaan zie je tags (bijv. #Releases, #Feedback, #Collab). Klik een tag om **alle posts met die tag** te zien. Handig voor thema's zoeken! **Populaire tags:** #Releases #Feedback #Collab #Support #Showcase #Question. / 🏷️ At top of discussion: tags (e.g., #Releases, #Feedback, #Collab). Click a tag to see **all posts with that tag**. Popular: #Releases #Feedback #Collab #Support #Showcase #Question."
+            a: "📋 Selecteer simpelweg de tekst die je wilt citeren in een post en kies vervolgens 'Quote'. De tekst wordt als quote in je reply geplaatst, handig voor duidelijke feedback of antwoord op iemand."
         },
         {
-            k: ["categorie", "category", "forum", "section", "onderdeel", "releases", "feedback", "support"],
-            a: "📂 **Forum categorieën** (meestal): 📎 Releases (posts over nummers), 💭 Feedback (vragen om feedback), 🤝 Collab (samenwerking zoeken), ❓ Support (hulp nodig), 💬 Offtopic (random chat), 🎵 Live Music Room (live chat). Klik een categorie in het menu om al die posts te zien! / 📂 **Forum categories** (typically): 📎 Releases (song posts), 💭 Feedback (feedback requests), 🤝 Collab (seeking collaborations), ❓ Support (need help), 💬 Offtopic (random chat), 🎵 Live (live chat). Click to view!"
+            k: ["markdown", "opmaak", "bold", "schuin", "italic", "link", "editor", "formatting", "preview"],
+            a: "✍️ Flarum gebruikt Markdown. Gebruik **tekst** voor vet, *tekst* voor schuin, ~~tekst~~ voor doorhalen en [link](https://voorbeeld.nl) voor links. De preview-knop laat zien hoe het eruit komt te zien."
         },
         {
-            k: ["releases categorie", "feedback categorie", "collab categorie", "support categorie"],
-            a: "📂 **Releases:** Post je nummers hier (150+ tekens, geen bare links!). **Feedback:** Vraag om feedback op je werk. **Collab:** Zoek samenwerkingspartners. **Support:** Technische vragen of hulp. **Offtopic:** Leuke random gesprekken. / 📂 **Releases:** Post your music (150+ chars, no bare links). **Feedback:** Ask for feedback. **Collab:** Find collaborators. **Support:** Tech questions/help. **Offtopic:** Random fun."
-        },
-
-        // ========== FORUM: ZOEKEN & NAVIGATIE ==========
-        {
-            k: ["zoeken", "search", "vinden", "opzoeken", "how to find", "zoekbalk"],
-            a: "🔍 **Bovenaan:** klik op **magneetglas-icoontje** (🔍) of zoekbalk. Typ: artiestennaam, woord, tag (bijv. #Releases). Klik 'Recent', 'Popular', 'Unanswered' om sortering te veranderen. Snel gevonden! / 🔍 **Top of page:** click search icon or search bar. Type: artist name, word, tag (e.g., #Releases). Click 'Recent', 'Popular', 'Unanswered' to sort. Found quick!"
+            k: ["afbeelding", "image", "foto", "plaatje", "upload image", "picture", "insert image"],
+            a: "🖼️ In de editor kun je een afbeelding toevoegen via het foto-icoontje. Upload een bestand van je computer of plak een afbeeldings-URL. Ideaal voor release covers, artwork of screenshots."
         },
         {
-            k: ["recente posts", "latest", "newest", "recent", "what's new", "trending"],
-            a: "📰 Standaard zie je de **meest recente** posts. Klik **'Latest'** voor nieuwste, **'Top'** voor populairste, **'Unanswered'** voor threads die reacties nodig hebben. Kies wat je wilt! / 📰 By default: **most recent** posts. Click 'Latest' for newest, 'Top' for popular, 'Unanswered' for threads needing replies."
-        },
-
-        // ========== FORUM: EDITOR & OPMAAK ==========
-        {
-            k: ["markdown", "opmaak", "vet", "bold", "schuin", "italic", "link", "formatting", "editor"],
-            a: "✍️ Flarum ondersteunt **Markdown**: **vet** = `**tekst**`, *schuin* = `*tekst*`, ~~doorhalen~~ = `~~tekst~~`, [link](url), \n> quote = `> quote`. Preview-knop toont hoe het eruitziet voordat je post! / ✍️ Flarum supports **Markdown**: **bold** = `**text**`, *italic* = `*text*`, [link](url), > quote. Preview button shows how it looks before posting!"
-        },
-        {
-            k: ["afbeelding", "image", "foto", "plaatje", "insert image", "upload image", "picture"],
-            a: "🖼️ Klik het **foto-icoontje** in de editor. Upload van computer OF plak image-URL. Foto verschijnt direct in je post. Voorkeur: JPG/PNG, max 5MB. Handig voor album covers, screenshots! / 🖼️ Click photo icon in editor. Upload from computer OR paste image URL. Photo appears in your post. Max 5MB. Great for album covers, screenshots!"
-        },
-        {
-            k: ["emoji", "emoticon", "smilie", "😊", "insert emoji"],
-            a: "😊 Typ `:` dan woord, bijv. `:smile:` `:fire:` `:heart:` `:music:`. Flarum toont suggesties. OF klik emoji-icoontje voor dropdown. Maak je posts leuker! / 😊 Type `:` then word, e.g. `:smile:` `:fire:` `:heart:`. Flarum shows suggestions. Or click emoji icon for dropdown. Make posts fun!"
+            k: ["emoji", "emoticon", "smile", "😊", "insert emoji"],
+            a: "😊 Typ : gevolgd door een woord zoals :smile:, :fire:, :heart: of :music:. Flarum geeft suggesties, of je kunt handmatig een emoji invoegen in je tekst."
         },
         {
             k: ["draft", "concept", "klad", "autosave", "save draft", "unsent"],
-            a: "💾 Als je halverwege stopt zonder te posten, slaat Flarum je bericht AUTOMATISCH op als Draft. Klik later terug en je ziet: 'Resume Draft'. Geen verlies van werk! / 💾 If you stop writing without posting, Flarum automatically saves as Draft. Click back later and see 'Resume Draft'. No lost work!"
-        },
-
-        // ========== FORUM: INTERACTIE ==========
-        {
-            k: ["taggen", "@", "mention", "iemand noemen", "notify persoon", "tag someone"],
-            a: "🔔 Typ **@gebruikersnaam** in je post. Die persoon krijgt direct **notificatie** dat je hen genoemd hebt! Werkt in discussies, replies, en guestbook. Perfect om aandacht te trekken! / 🔔 Type **@username** in your post. That person gets instant **notification**! Works in discussions, replies, guestbook. Perfect for getting attention!"
+            a: "💾 Als je halverwege een bericht stopt, slaat Flarum dit vaak automatisch op als concept. Je kunt het later hervatten en verder bewerken zonder je werk kwijt te raken."
         },
         {
-            k: ["upvote", "like", "👍", "reaction", "emoji reaction", "punten", "score"],
-            a: "👍 Klik de **👍-knop** onder een post. Geeft de poster **punten** op het Leaderboard! Je kunt 1x per post upvoten (je kunt terugdraaien). Goeie posts krijgen meer upvotes → meer punten! / 👍 Click the **👍 button** under a post. Gives poster **points** on Leaderboard! You can upvote once per post (can undo). Good posts get more upvotes → more points!"
+            k: ["@", "mention", "taggen", "iemand noemen", "notify persoon", "tag someone", "mention user"],
+            a: "🔔 Typ @gebruikersnaam in je post of reactie. De persoon krijgt dan een melding dat je hem of haar genoemd hebt. Dat is handig voor feedback, collabs en direct contact."
         },
         {
-            k: ["volgen", "follow", "subscription", "subscribe", "watch thread", "notifications"],
-            a: "⭐ Klik **'Follow'** onder discussie-titel. Je krijgt dan **notificaties** bij nieuwe reacties EN het verschijnt in je **'Following'** tab. Handig voor threads die je wilt volgen! / ⭐ Click 'Follow' under discussion title. Get **notifications** on new replies AND see in your **'Following'** tab. Great for tracking threads!"
+            k: ["upvote", "like", "👍", "reaction", "punten", "leaderboard", "score", "vote"],
+            a: "👍 Klik op de 👍-knop onder een post. Daarmee geef je punten of waardering en help je de poster zichtbaar te worden. Goede posts krijgen vaak meer aandacht en meer reacties."
         },
         {
-            k: ["bookmark", "bladwijzer", "saved", "opslaan", "save", "mark for later"],
-            a: "📌 Klik het **📌-icoontje** onder een post. Sla op in je persoonlijke **'Saved'** list (zie je in profielmenu). Perfecte plek om interessante posts terug te vinden! / 📌 Click the **📌 icon** under a post. Save to your personal **'Saved'** list (in profile menu). Perfect for finding interesting posts later!"
+            k: ["volgen", "follow", "subscribe", "subscription", "following", "watch thread", "notificatie"],
+            a: "⭐ Als je een discussie volgt, krijg je meldingen bij nieuwe reacties. Klik op 'Follow' onder de titel van een topic of ga naar je 'Following' overzicht om alles te bekijken."
         },
-
-        // ========== FORUM: BEWERKEN & VERWIJDEREN ==========
         {
-            k: ["bewerken", "edit", "wijzigen", "change", "aanpassen", "fix typo"],
-            a: "✏️ Klik de **...** (drie puntjes) onder JE EIGEN post → Selecteer **'Edit'**. Je hebt meestal ~1 uur tijd om je post aan te passen. Moderators kunnen alles bewerken. Klik 'Save' als je klaar bent! / ✏️ Click the **...**(three dots) under YOUR OWN post → Select 'Edit'. You usually have ~1 hour to adjust. Moderators can edit anything. Click 'Save' when done!"
+            k: ["bookmark", "bladwijzer", "save", "opslaan", "saved", "mark for later"],
+            a: "📌 Klik op het bladwijzer-icoontje of bookmark-icoontje onder een post om deze op te slaan. Zo kun je nuttige discussies later snel terugvinden in je profiel."
+        },
+        {
+            k: ["bewerken", "edit", "wijzigen", "aanpassen", "fix typo", "correctie"],
+            a: "✏️ Klik op de drie puntjes onder je eigen post en kies 'Edit'. Je hebt meestal een beperkte tijd om het bericht aan te passen. Daarna sla je het op."
         },
         {
             k: ["verwijderen", "delete", "wissen", "remove", "erase post"],
-            a: "🗑️ Klik de **...** onder JE post → Selecteer **'Delete'**. Je kunt je EIGEN posts meestal zelf verwijderen. Moderators kunnen alles verwijderen als het tegen regels is. Eenmaal weg = definitief weg! / 🗑️ Click **...** under YOUR post → Select 'Delete'. You can usually delete your own posts. Moderators delete rule-breaking posts. Once gone = permanently gone!"
+            a: "🗑️ Klik op de drie puntjes onder je eigen post en kies 'Delete' om een bericht te verwijderen. Moderators kunnen ook berichten verwijderen als deze tegen de regels ingaan."
         },
         {
-            k: ["rapporteren", "report", "flag", "spam", "hateful", "rule breaking", "inappropriate"],
-            a: "⚠️ Zie je iets ongeldig (spam, haatzaai, nep)? Klik **...** → Selecteer **'Report'**. Beschrijf waarom. Moderators zien dit en nemen **snel actie**. Niet zelf ingrijpen - reporteren gebruiken! / ⚠️ See something wrong (spam, hate speech, fake)? Click **...** → Select 'Report'. Describe why. Moderators see this and **act fast**. Don't intervene - use reporting!"
-        },
-
-        // ========== FORUM: INBOX & PRIVACY ==========
-        {
-            k: ["inbox", "privé bericht", "dm", "direct message", "personal message", "private"],
-            a: "✉️ Klik het **envelopje** (✉️) rechtsboven in navigatie. Daar zie je privé gesprekken met andere leden. Klik iemands **profiel** → **'Send Message'** om nieuw privé bericht te starten. Privacy gegarandeerd! / ✉️ Click the **envelope** (✉️) top right in navigation. See private conversations. Click someone's profile → 'Send Message' to start new PM. Privacy guaranteed!"
+            k: ["rapporteren", "report", "flag", "spam", "rule breaking", "inappropriate", "misbruik"],
+            a: "⚠️ Zie je spam, ongepaste inhoud, haat of andere schendingen? Klik op de drie puntjes bij die post en kies 'Report'. Geef kort aan waarom je het rapporteert, zodat moderators kunnen ingrijpen."
         },
         {
-            k: ["mute", "block", "blokkeer", "negeren", "ignore user", "don't see posts"],
-            a: "🔇 Klik iemands **profiel** → **'Mute'** zodat je hun posts niet ziet. **'Block'** betekent: geen privé berichten mogelijk EN hun content verdwijnt. Handig als je iemand liever niet ziet! / 🔇 Click someone's profile → 'Mute' to hide their posts. 'Block' = no PMs possible AND their content hidden. Useful for avoiding someone!"
+            k: ["inbox", "privé bericht", "dm", "direct message", "personal message", "private message"],
+            a: "✉️ Klik op het envelopje rechtsboven om je inbox te openen. Daar zie je privé berichten van andere leden. Om iemand een bericht te sturen, open zijn profiel en klik op 'Send Message'."
         },
-
-        // ========== FORUM: REGELS & MODERATIE ==========
         {
-            k: ["regels", "rules", "gedrag", "community guidelines", "wat mag", "wat niet", "forbidden"],
-            a: "📋 **Chatsong Forum Regels:** ✅ Wees respectvol & vriendelijk. ✅ Geen spam/ads buiten je posts. ✅ Zet 150+ tekens bij releases (geen bare links!). ✅ Geef constructieve feedback. ✅ Volg taggen/categorie-regels. ❌ Geen haatzaai, pesten, discriminatie. ❌ Geen reclame in PMs. Moderators handhaven dit! / 📋 **Forum Rules:** ✅ Be respectful & kind. ✅ No spam/ads outside posts. ✅ Add 150+ characters to releases (no bare links!). ✅ Give constructive feedback. ❌ No hate speech, bullying, discrimination. Moderators enforce!"
+            k: ["mute", "block", "negeren", "ignore user", "don't see posts", "blokkeer"],
+            a: "🔇 Open het profiel van een gebruiker en kies 'Mute' of 'Block'. Mute verbergt hun berichten voor jou, Block voorkomt contact en laat hun content niet meer zien."
+        },
+        {
+            k: ["regels", "rules", "gedrag", "community guidelines", "wat mag", "wat niet", "forbidden", "moderatie"],
+            a: "📋 De forumregels zijn meestal: respectvol zijn, geen spam, geen ongepaste links, geen haat, geen misbruik en constructieve feedback geven. Als je twijfelt, lees de regels of vraag een moderator."
         },
         {
             k: ["waarschuwing", "warning", "suspension", "ban", "verbannen", "gestraft"],
-            a: "⚠️ Regels breken? Je krijgt waarschuwing (warning), dan suspension (even offline), dan permanente ban. Moderators proberen eerlijkheid, maar duidelijke schendingen = snel actie. Respecteer regels → geen probleem! / ⚠️ Break rules? Warning first, then suspension, then permanent ban. Moderators try fairness, but clear violations = quick action. Respect rules → no problem!"
-        },
-
-        // ========== LIVE MUSIC ROOM & COMMUNITY ==========
-        {
-            k: ["live music room", "live chat", "soundboard", "vibe", "mood", "support", "supabase"],
-            a: "🎵🔴 **Onderaan scherm:** de **Live Music Chatroom** (realtime chat powered by Supabase). Hier: live chatten, @-mention anderen, muziek embeds (Spotify/SoundCloud/YouTube), Vibe Panel (stemming delen), Soundboard (support/vragen). WHERE IT HAPPENS! / 🎵🔴 **Bottom of screen:** **Live Music Chatroom** (real-time powered by Supabase). Chat live, @-mention, embed music, share vibes, ask for support. WHERE IT HAPPENS!"
+            a: "⚠️ Bij ernstige schendingen kunnen waarschuwingen, tijdelijke suspensions of een permanente ban volgen. Moderators proberen de regels eerlijk toe te passen, maar duidelijke schendingen kunnen snel resulteren in actie."
         },
         {
-            k: ["leaderboard", "ranglijst", "ranking", "top", "punten", "leaders", "hall of fame"],
-            a: "🏆 **Leaderboard** toont TOP contributors gerangschikt op punten (upvotes). Verzamel punten door: goede posts, reacties, feedback geven. Top contributors win recognition! Klik 🏆 in menu om te zien! / 🏆 **Leaderboard** shows TOP contributors by points (upvotes). Earn points via: good posts, replies, feedback. Top contributors get recognition! Click 🏆 in menu!"
+            k: ["live music room", "live chat", "soundboard", "vibe", "mood", "community chat", "supabase"],
+            a: "🎵 In de live Music Room kun je in realtime chatten met andere leden, muziek delen, mention maken en bijdragen aan de community. Dit is ideaal voor sfeer, feedback en contact."
         },
         {
-            k: ["artiesten", "musicians", "a-z filter", "filterbar", "browse", "discover"],
-            a: "🎸 **A-Z Musicians Filterbar:** blader snel en alfabetisch door alle onafhankelijke artiesten op Chatsong. Perfect om nieuwe muzikanten te ontdekken! Klik 🎸 **Musicians** in het menu. / 🎸 **A-Z Musicians Filterbar:** browse all independent artists alphabetically. Perfect for discovering new musicians! Click 🎸 **Musicians** in menu."
-        },
-
-        // ========== VEILIGHEID & INCLUSIE ==========
-        {
-            k: ["veilig", "safety", "veiligheid", "privacy", "pesten", "ouder", "kinderen", "safe for kids"],
-            a: "🔒 **Chatsong is 100% gratis EN veilig!** Je mag artiestennaam gebruiken (echte naam niet nodig). **Moderators** zorgen dat het netjes blijft, pesten wordt NIET getolereerd. Geschikt voor kinderen met toezicht! / 🔒 **Chatsong is 100% free AND safe!** Use artist names (no real name needed). Moderators keep it civil, bullying NOT tolerated. Kid-friendly with supervision!"
+            k: ["leaderboard", "ranglijst", "ranking", "top contributors", "hall of fame", "puntenlijst"],
+            a: "🏆 Het leaderboard toont de meest actieve en waardevolle deelnemers. Je verdient punten door goede posts, reacties, feedback en helpende bijdragen."
         },
         {
-            k: ["alleen luisteren", "lurker", "geen muziek", "alleen chatten", "meepraten", "beginner"],
-            a: "💬 **Iedereen is welkom!** Je hoeft NIET je eigen muziek te uploaden. Je kunt: 💭 Meepraten & feedback geven, 🎧 Alleen luisteren naar anderen, 🤝 Chatten in Live Music Room, 🙋 Vragen stellen, 📖 Leren. Geen drempel, iedereen mee! / 💬 **Everyone welcome!** You DON'T have to upload music. You can: 💭 Join & give feedback, 🎧 Just listen, 🤝 Chat in Live Room, 🙋 Ask questions, 📖 Learn. No barriers, join in!"
+            k: ["artiesten", "musicians", "browse", "discover", "a-z filter", "filterbar"],
+            a: "🎸 Gebruik de artiesten- of musicians-overzichtpagina om op naam te zoeken en nieuwe makers te ontdekken. Dit is handig om gelijkgestemde artiesten, producers of communityleden te vinden."
         },
-
-        // ========== TIPS & TRICKS ==========
         {
-            k: ["tips", "tricks", "hacks", "hints", "advice", "best practices", "how to succeed"],
-            a: "💡 **Tips voor succes:** 1️⃣ Goede titel + 150+ tekens = meer reacties. 2️⃣ Upvote anderen → zij upvoten jou. 3️⃣ Specifieke tags gebruiken (#Releases #Feedback). 4️⃣ Respectvol zijn & feedback geven. 5️⃣ Actief in Live Room = beter gekend. 6️⃣ Geduld = community groeit langzaam. / 💡 **Success tips:** 1️⃣ Good title + 150+ chars = more replies. 2️⃣ Upvote others → they upvote you. 3️⃣ Use specific tags. 4️⃣ Be respectful & give feedback. 5️⃣ Active in Live Room = better known. 6️⃣ Patience!"
+            k: ["veilig", "safety", "privacy", "kinderen", "pesten", "safe for kids", "moderators"],
+            a: "🔒 Dit forum is bedoeld om veilig en respectvol te blijven. Moderators houden toezicht, pesten en misbruik worden niet getolereerd. Je kunt altijd een moderator of team aanspreken als iets niet goed voelt."
+        },
+        {
+            k: ["tips", "tricks", "hacks", "hints", "advice", "succes", "best practices"],
+            a: "💡 Tips voor succes: maak duidelijke titels, gebruik relevante tags, geef constructieve feedback, reageer op mensen, en zet duidelijke context in je releases zodat anderen sneller begrijpen waar je aan werkt."
+        },
+        {
+            k: ["title length", "titel lengte", "title length extension", "lange titel", "minimale titel lengte"],
+            a: "📏 De Title Length extensie helpt om titels consistent en duidelijk te houden. Zo worden vage of te korte titels beperkt, waardoor discussies beter en overzichtelijker worden."
+        },
+        {
+            k: ["daily check in", "check in", "dagelijkse check in", "zien daily check in", "daily check in extension"],
+            a: "✅ De Daily Check In extensie moedigt leden aan om elke dag een check-in te doen. Vaak levert dat beloningen, streaks of extra community-waardering op."
+        },
+        {
+            k: ["money leaderboard", "money leaderboard extension", "leaderboard geld", "leaderboard punten", "ziven money leaderboard"],
+            a: "🏆 De Money Leaderboard toont wie de meeste punten of waarde in de community heeft verzameld. Dit werkt vaak samen met upvotes, bijdragen en community-activiteit."
+        },
+        {
+            k: ["money transfer", "geld overmaken", "money transfer extension", "ziven money transfer", "punten overboeken"],
+            a: "💸 De Money Transfer extensie maakt het mogelijk om punten, valuta of waardes tussen leden te versturen of te delen. Dit is handig voor community-rewards of kleine interacties binnen het forum."
+        },
+        {
+            k: ["post number", "post nummer", "ziven post number", "nummering van posts", "post count"],
+            a: "🔢 De Post Number extensie helpt om posts of bijdragen te nummeren of te categoriseren. Hierdoor is het makkelijker om bijdragevolgorde en activiteit te volgen."
+        },
+        {
+            k: ["custom side nav links", "side nav links", "custom links", "navigatie links", "custom sidebar"],
+            a: "🔗 Custom Side Nav Links laat admins extra navigatie-links aan de sidebar toevoegen. Dat is handig voor belangrijke pagina's, support, help, community-links of speciale forumsecties."
+        },
+        {
+            k: ["categories", "categorieën", "forum categories", "cat extension", "ziven categories"],
+            a: "🗂️ De Categories extensie helpt om de forumstructuur overzichtelijk te houden. Je krijgt duidelijke groepen zoals Releases, Feedback, Support of Vraag & Aanbod."
+        },
+        {
+            k: ["color circles", "kleurcirkel", "color circles extension", "kleuren rondjes", "avatar circles"],
+            a: "🎨 Color Circles gebruikt kleurcodering om leden, groepen of statussen visueel te onderscheiden. Zo is het snel te zien hoe iemand in de community geclassificeerd is."
+        },
+        {
+            k: ["mobile search", "mobiele zoek", "mobile search extension", "zoeken op mobiel"],
+            a: "📱 Mobile Search maakt zoeken makkelijker op mobiel. Hierdoor kunnen leden snel op tags, termen, gebruikers of discussies zoeken zonder onnodige scroll-ervaring."
+        },
+        {
+            k: ["subscriptions", "subscripties", "abonnement", "followers", "subscribers"],
+            a: "⭐ Subscriptions maakt het mogelijk om onderwerpen of creators te volgen. Je ontvangt meldingen bij nieuwe updates en kunt zo belangrijke gesprekken in de gaten houden."
+        },
+        {
+            k: ["suspend", "suspension", "geblokkeerd", "tijdelijk offline", "opgeschort"],
+            a: "⏳ De Suspend extensie geeft moderators de mogelijkheid om een gebruiker tijdelijk te beperken. Dit kan gebeuren bij overtreding van regels of om escalatie te voorkomen."
+        },
+        {
+            k: ["tags extension", "tag extensie", "tags plugin", "tag management"],
+            a: "🏷️ De Tags extensie maakt thema- en filtertags mogelijk. Zo kunnen leden snel posts vinden op basis van onderwerp, stijl, type of samenwerking."
+        },
+        {
+            k: ["threadify", "threadify extension", "threads", "discussie stijl", "thread instellingen"],
+            a: "🧵 Threadify verbetert de manier waarop discussies worden weergegeven. Het houdt gesprekken overzichtelijk, leesbaar en gebruiksvriendelijk voor bezoekers en moderators."
+        },
+        {
+            k: ["spam prevention", "spam preventie", "spam protection", "spam checker", "anti spam"],
+            a: "🛡️ Spam Prevention helpt ongewenste of repetitieve inhoud te blokkeren. Daardoor blijven de forumdiscussies overzichtelijk, veilig en relevant voor de community."
+        },
+        {
+            k: ["staff badge", "staff badge extension", "moderator badge", "medewerker badge", "team badge"],
+            a: "👑 Staff Badge laat teamleden of moderators duidelijke badges zien. Zo is direct te herkennen wie de community ondersteunt en de regels bewaakt."
+        },
+        {
+            k: ["statistics", "statistieken", "forum stats", "stats", "gebruikersstatistieken"],
+            a: "📊 Statistics geeft een overzicht van activiteit, gebruikers, posts en trends. Dit helpt moderators en leden om te zien hoe actief het forum is."
+        },
+        {
+            k: ["status", "user status", "online status", "status indicator", "member status"],
+            a: "🟢 Status laat zien of iemand online, offline of actief is. Zo is het makkelijker om te zien wie aanwezig is in de community en wie beschikbaar is voor contact."
+        },
+        {
+            k: ["stickies", "sticky", "vastgezette berichten", "sticky posts", "sticky threads"],
+            a: "📌 Stickies zijn vaste berichten die bovenaan blijven staan. Dit is handig voor regels, belangrijke updates, aankondigingen of informatie die iedereen moet zien."
+        },
+        {
+            k: ["sort order toggle", "sort order", "sorteervolgorde", "toggle sort", "order toggle"],
+            a: "🔄 Sort Order Toggle laat leden kiezen hoe discussies worden gesorteerd, bijvoorbeeld op nieuwste, meest populair of onbeantwoord. Zo kunnen ze sneller het juiste onderdeel vinden."
+        },
+        {
+            k: ["spam alert", "spam waarschuwing", "spam warning", "alert", "waarschuwing spam"],
+            a: "🚨 Spam Alert waarschuwt moderators of admins als verdachte of ongewenste inhoud wordt gedetecteerd. Zo kan de community sneller beschermd worden tegen misbruik."
+        },
+        {
+            k: ["hoe help ik", "hulp", "support", "probleem", "wat moet ik doen", "ik weet niet hoe"],
+            a: "🆘 Je hoeft niet alles zelf te weten. Vraag in de juiste categorie, zoek op tags, lees de regels, of gebruik deze chatbot. Veel problemen zijn standaard: account, profiel, post maken, tags, upvoten, reageren en support."
+        },
+        {
+            k: ["vraag en aanbod forum", "vraag en aanbod categorie", "waar plaats ik aanbod", "waar plaats ik vraag", "ik wil iets vragen"],
+            a: "🧾 Gebruik de categorie Vraag & Aanbod. Plaats daar een duidelijke titel, vertel wat je zoekt of aanbiedt, en voeg relevante tags toe zoals #Collab #Service #Feedback. Dan zien de juiste mensen het sneller."
         }
     ];
 
     window.toggleChatsongBot = function() {
         const win = document.getElementById('cb-window');
+        if (!win) return;
         win.style.display = win.style.display === 'none' ? 'flex' : 'none';
     };
 
@@ -273,16 +309,13 @@
     function calculateScore(question, keywords) {
         let score = 0;
         const q = question.toLowerCase();
-        
+
         keywords.forEach(keyword => {
             const kw = keyword.toLowerCase();
-            
-            // Exact match: sterke bonus
+
             if (q.includes(kw)) {
                 score += kw.length * 3;
-            }
-            // Fuzzy match: zwakkere bonus
-            else {
+            } else {
                 const distance = levenshteinDistance(q, kw);
                 const similarity = 1 - (distance / Math.max(q.length, kw.length));
                 if (similarity > 0.7) {
@@ -290,7 +323,7 @@
                 }
             }
         });
-        
+
         return score;
     }
 
@@ -301,10 +334,9 @@
         if (!text) return;
 
         messages.innerHTML += `<div class="u-msg">${escapeHtml(text)}</div>`;
-        const q = text.toLowerCase();
         input.value = '';
 
-        let bestAns = "Dat is een goede vraag! 🤔 Probeer vragen over: account/login, profiel bewerken, hoe een discussie starten, releases posten, tags gebruiken, upvoten, forum regels, of stuur bericht in Live Music Room. / That's a great question! 🤔 Try asking about: account/login, edit profile, start discussion, post music, use tags, upvote, forum rules, or chat in Live Music Room.";
+        let bestAns = "Dat is een goede vraag! 🤔 Probeer vragen over: account/login, profiel, forum basics, tags, reacties, upvoten, regels, vraag & aanbod, of een specifieke Flarum extensie. / That's a good question! 🤔 Try asking about account/login, profile, forum basics, tags, replies, upvotes, rules, question & offer, or a specific Flarum extension.";
         let highestScore = 0;
 
         window.chatsongDB.forEach(item => {
@@ -324,6 +356,9 @@
     };
 
     function escapeHtml(str) {
-        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
     }
 })();
