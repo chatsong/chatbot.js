@@ -10,10 +10,10 @@
                 <button onclick="toggleChatsongBot()">×</button>
             </div>
             <div id="cb-messages">
-                <div class="b-msg">Hoi! Welkom op Chatsong.nl. Vraag me alles over de community, registreren, de 150-tekens release-regel, profielen, Flarum, de Live Music Room, de Instagram Story Generator of het Soundboard!</div>
+                <div class="b-msg">Hoi! Welkom op Chatsong.nl. Vraag me alles over de community, je net gemaakte profiel, de 150-tekens release-regel, Flarum, de Live Music Room of het Soundboard! / Ask me anything!</div>
             </div>
             <div id="cb-input-area">
-                <input type="text" id="cb-input" placeholder="Typ je vraag hier..." onkeypress="handleChatsongKey(event)">
+                <input type="text" id="cb-input" placeholder="Typ je vraag hier / Type your question..." onkeypress="handleChatsongKey(event)">
                 <button onclick="sendChatsongMsg()">→</button>
             </div>
         </div>
@@ -38,55 +38,71 @@
     `;
     document.head.appendChild(style);
 
-    // Uitgebreide Kennisbank inclusief nieuwe community-functies
+    // Ultieme Master Kennisbank: Flarum + Chatsong Source Code + Profiel-opties + Kids/Beginners (Meertalig)
     window.chatsongDB = [
         {
-            k: ["wat is chatsong", "missie", "doel", "gratis", "payola", "2017", "roy", "verschil", "anders", "kind", "beginner", "doelgroep"],
-            a: "Chatsong.nl is in 2017 opgericht door Chatsong Roy met als belofte 'Real Music, Zero Bots!'. Het is een onafhankelijke, mensgedreven muziekcommunity zonder payola. In tegenstelling tot platforms met algoritmes, beoordelen echte mensen hier de muziek."
+            k: ["wat nu", "klaar", "profiel aangemaakt", "starten", "eerste stap", "opties", "what to do", "profile created", "wat kan ik doen"],
+            a: "Gefeliciteerd met je nieuwe profiel! Dit kun je nu allemaal doen op Chatsong[cite: 13]: 1) **UserCard & Gastenboek:** Voeg socialmediaknoppen toe en ontvang collab-verzoeken in je profiel-gastenboek[cite: 13]. 2) **Muziek Delen:** Post je tracks met de Link- en Pre-save Fixer (vergeet de 150-tekens regel niet!)[cite: 13]. 3) **Live Music Room:** Chat live mee en luister naar ingebedde muziek van Spotify, SoundCloud, YouTube, Beatport of Mixcloud[cite: 13]. 4) **Vibe Panel & Soundboard:** Deel je muzikale stemming of supportvragen[cite: 13]. 5) **Instagram Story Generator:** Zet posts om in een visual voor je verhalen[cite: 13]. 6) **Leaderboard & A-Z Filterbar:** Verzamel punten en blader door de artiestenmap[cite: 13]."
         },
         {
-            k: ["account", "registreren", "aanmaken", "inloggen", "sign up", "join free", "wachtwoord", "spotify", "login", "turnstile", "captcha"],
-            a: "Ga naar www.chatsong.nl, klik op 'Join Free' / 'Sign Up', vul je e-mail, gebruikersnaam en wachtwoord in en doorloop de Turnstile-captcha. Je kunt ook snel inloggen via beveiligde sociale koppelingen zoals Spotify."
+            k: ["wat is chatsong", "missie", "doel", "gratis", "payola", "2017", "roy", "verschil", "anders", "kind", "beginner", "doelgroep", "about", "mission"],
+            a: "Chatsong.nl is in 2017 opgericht door Chatsong Roy met als belofte 'Real Music, Zero Bots!'. Het is een onafhankelijke, mensgedreven muziekcommunity zonder payola. Echte mensen beoordelen hier de muziek in plaats van blinde algoritmes. Beginners, kinderen en ervaren artiesten zijn allemaal welkom[cite: 13]!"
         },
         {
-            k: ["taal", "language", "engels", "nederlands", "talen", "thema", "dark mode", "donker", "instellingen"],
-            a: "Bovenaan vind je de taal-dropdown met keuze uit 12 talen. De website beschikt over uitgebreide CSS-variabelen die naadloos schakelen tussen een lichte en een donkere modus (dark mode)."
+            k: ["account", "registreren", "aanmaken", "inloggen", "sign up", "join free", "wachtwoord", "spotify", "login", "turnstile", "captcha", "register"],
+            a: "Ga naar de homepage, klik op 'Join Free' / 'Sign Up', vul je e-mail, gebruikersnaam en wachtwoord in en doorloop de Turnstile-captcha. Je kunt ook direct inloggen via beveiligde sociale koppelingen zoals Spotify."
         },
         {
-            k: ["profiel", "bio", "biografie", "avatar", "profielfoto", "social", "knoppen", "usercard", "settings"],
-            a: "Je UserCard is je visitekaartje. Je bio mag maximaal 200 tekens en 5 regels lang zijn. Via Settings kun je ook je avatar uploaden en social media knoppen toevoegen."
+            k: ["taal", "language", "engels", "nederlands", "talen", "thema", "dark mode", "donker", "instellingen", "settings"],
+            a: "Bovenaan vind je de taal-dropdown met keuze uit 12 talen (waaronder Nederlands en Engels). De website ondersteunt volledig automatische Dark Mode op basis van je apparaatinstellingen via ingebouwde CSS-variabelen[cite: 13]."
         },
         {
-            k: ["nummer", "muziek", "uploaden", "plaatsen", "post", "topic", "regels", "150 tekens", "link", "titel", "bare link", "seo"],
-            a: "⚠️ Belangrijke SEO-regel: Geen bare link dumping! Bij het plaatsen van een release ben je VERPLICHT om minimaal 150 tekens tekst of achtergrondverhaal toe te voegen, omdat Google niet kan luisteren."
+            k: ["profiel", "bio", "biografie", "avatar", "profielfoto", "social", "knoppen", "usercard", "profile", "make profile", "create profile"],
+            a: "Je UserCard is je visitekaartje. Je bio mag maximaal 200 tekens en 5 regels lang zijn (te bewerken via je profiel/Settings). Via Settings kun je ook je avatar uploaden en socialmediaknoppen toevoegen (Instagram, Spotify, SoundCloud, YouTube, TikTok)."
         },
         {
-            k: ["menu", "dropdown", "navigatie", "snelkoppeling", "mobiel", "balk", "onderbalk", "leaderboard", "ranglijst", "blog", "playlist", "top 40", "musicians"],
-            a: "Het hoofdmenu bevat de blog, playlist submissions en Top 40. Via de navigatie vind je onder andere het Leaderboard en de artiestengids."
+            k: ["gastenboek", "guestbook", "collab", "bericht op profiel", "samenwerken"],
+            a: "Op elk profiel vind je een openbaar gastenboek ('Post a message ✉'). Andere muzikanten kunnen hier direct een bericht of samenwerkingsverzoek (collab request) achterlaten[cite: 13]."
         },
         {
-            k: ["reageren", "taggen", "@", "upvote", "punten", "gastenboek", "guestbook", "collab request", "citeren", "quote", "flarum"],
-            a: "In Flarum reageer je via 'Reply' en tag je anderen met @gebruikersnaam. Upvotes geven punten voor het Leaderboard. Op elk profiel vind je bovendien een openbaar gastenboek voor collab requests."
+            k: ["nummer", "muziek", "uploaden", "plaatsen", "post", "topic", "regels", "150 tekens", "link", "titel", "bare link", "seo", "release", "track"],
+            a: "⚠️ Belangrijke SEO-regel: Geen bare link dumping! Bij het plaatsen van een release (titelformaat: Artiestennaam - Nummer Titel [Genre]) ben je VERPLICHT om minimaal 150 tekens tekst of achtergrondverhaal toe te voegen. Omdat Google niet kan luisteren, wordt een topic met alleen een losse link zonder waarschuwing verwijderd."
+        },
+        {
+            k: ["link fixer", "pre-save", "distrokid", "socials", "link fixer"],
+            a: "Wanneer je een link deelt (zoals een DistroKid pre-save of social media link), herkent de ingebouwde Link- en Pre-save Fixer deze automatisch en verandert hij in een mooie, visuele kaart[cite: 13]."
+        },
+        {
+            k: ["menu", "dropdown", "navigatie", "snelkoppeling", "mobiel", "balk", "onderbalk", "leaderboard", "ranglijst", "blog", "playlist", "top 40", "musicians", "artiesten"],
+            a: "Het hoofdmenu bevat de blog, playlist submissions en Top 40. Via de navigatie of onderbalk op mobiel vind je snel het Leaderboard ([🏆 Leaderboard]) en de artiestengids ([🎸 Musicians]) met A-Z filter[cite: 13]."
+        },
+        {
+            k: ["reageren", "taggen", "@", "upvote", "punten", "citeren", "quote", "flarum", "reply"],
+            a: "In Flarum reageer je via 'Reply', citeer je door tekst te selecteren en op 'Quote' te klikken, en tag je anderen met @gebruikersnaam. Upvotes geven punten voor het Leaderboard."
         },
         {
             k: ["live music room", "chat", "ruimte", "vibe", "mood", "support", "team", "soundboard", "supabase", "embeds", "spotify", "soundcloud", "youtube", "beatport", "mixcloud"],
-            a: "Onderaan het scherm zweeft de Live Music Chatroom (gekoppeld aan Supabase). Hier kun je live chatten, @-vermeldingen gebruiken en direct muziekspelers embedden (Spotify, SoundCloud, YouTube, Beatport, Mixcloud). Via het Vibe Panel en Soundboard deel je je stemming (mood), gedachten of supportvragen[cite: 13]."
+            a: "Onderaan het scherm zweeft de Live Music Chatroom (gekoppeld aan Supabase). Hier kun je live chatten, @-vermeldingen gebruiken en direct muziekspelers embedden (Spotify, SoundCloud, YouTube, Beatport, Mixcloud)[cite: 13]. Via het Vibe Panel en Soundboard deel je je stemming (mood), gedachten of supportvragen[cite: 13]."
         },
         {
-            k: ["composer", "schrijven", "poll", "peiling", "draft", "concept", "markdown", "afbeeldingen"],
-            a: "In de Flarum composer kun je Markdown gebruiken, afbeeldingen uploaden via fof-upload, peilingen tot 10 opties toevoegen en concepten automatisch laten opslaan."
+            k: ["composer", "schrijven", "poll", "peiling", "draft", "concept", "markdown", "afbeeldingen", "images", "fof-upload"],
+            a: "In de Flarum composer kun je Markdown gebruiken, afbeeldingen uploaden via fof-upload, peilingen (polls) tot 10 opties toevoegen en concepten automatisch laten opslaan onder Drafts."
         },
         {
-            k: ["instagram story", "generator", "visual", "verhalen"],
-            a: "Met de ingebouwde Instagram Story Generator kun je forumberichten automatisch omzetten in een deelbare visual voor je Instagram Stories[cite: 13]."
+            k: ["instagram story", "generator", "visual", "verhalen", "ig story"],
+            a: "Met de ingebouwde Instagram Story Generator kun je forumberichten automatisch omzetten in een mooie, deelbare visual voor je Instagram Stories[cite: 13]."
         },
         {
-            k: ["a-z", "filterbar", "artiestenmap", "filter"],
+            k: ["a-z", "filterbar", "artiestenmap", "filter", "musicians list"],
             a: "De A-Z Filterbar is een handige navigatiebalk binnen de artiestenmap om snel en alfabetisch door alle onafhankelijke musici te bladeren[cite: 13]."
         },
         {
-            k: ["link fixer", "pre-save", "distrokid", "socials"],
-            a: "De Link- en Pre-save Fixer detecteert automatisch ruwe of niet-werkende links (zoals DistroKid pre-saves en social media) en zet deze om in nette, visuele kaarten[cite: 13]."
+            k: ["veilig", "veiligheid", "privacy", "echte naam", "pesten", "ouder", "kosten", "geld", "betalen", "gratis"],
+            a: "Chatsong is 100% gratis en een veilige community[cite: 13]! Je mag gerust een artiestennaam gebruiken. Moderators zorgen ervoor dat het netjes blijft, en je hoeft nooit te betalen[cite: 13]."
+        },
+        {
+            k: ["alleen luisteren", "geen muziek", "alleen chatten", "meepraten", "beginner", "goed genoeg"],
+            a: "Iedereen is welkom, of je nu net begint of al jaren muziek maakt[cite: 13]! Je hoeft niet per se zelf muziek te uploaden; je kunt ook meepraten, luisteren of gezellig kletsen in de Live Music Room."
         }
     ];
 
@@ -109,7 +125,7 @@
         const q = text.toLowerCase();
         input.value = '';
 
-        let bestAns = "Dat is een goede vraag over Flarum of Chatsong! Bekijk de gids op de website of vraag het gerust in de Live Music Room onderaan de pagina. Je kunt me vragen over registreren, de Live Music Chatroom, het Soundboard, de Instagram Story Generator en meer![cite: 13]";
+        let bestAns = "Dat is een goede vraag! Bekijk de gids op de website of vraag het gerust in de Live Music Room onderaan de pagina. Je kunt me vragen over je profiel, de 150-tekens regel, het gastenboek, de Link Fixer of de Live Music Chatroom![cite: 13]";
         let highestScore = 0;
 
         window.chatsongDB.forEach(item => {
