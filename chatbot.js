@@ -25,9 +25,9 @@
         const style = document.createElement('style');
         style.innerHTML = `
             #chatsong-bot-container { position: fixed; bottom: 20px; right: 20px; z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-            #cb-toggle-btn { background: #8a2be2; color: #fff; border: none; padding: 12px 18px; border-radius: 30px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+            #cb-toggle-btn { background: #8a2be2; color: #fff; border: none; padding: 12px 18px; border-radius: 30px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s ease; }
             #cb-toggle-btn:hover { transform: scale(1.05); }
-            #cb-window { position: absolute; bottom: 60px; right: 0; width: 380px; height: 540px; background: #ffffff; border: 1px solid #ddd; border-radius: 12px; display: flex; flex-direction: column; box-shadow: 0 5px 25px rgba(0,0,0,0.15); }
+            #cb-window { position: absolute; bottom: 60px; right: 0; width: 380px; height: 540px; background: #ffffff; border: 1px solid #ddd; border-radius: 12px; display: flex; flex-direction: column; box-shadow: 0 10px 28px rgba(0,0,0,0.25); overflow: hidden; }
             #cb-header { background: #1a1a1a; color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 14px; }
             #cb-header button { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; }
             #cb-messages { flex: 1; padding: 12px; overflow-y: auto; font-size: 13px; display: flex; flex-direction: column; gap: 10px; background: #f9f9f9; }
@@ -47,7 +47,7 @@
         initChatsongBot();
     }
 
-    // 🎵 COMPLETE KENNISBANK: ACCOUNT + PROFIEL + FORUM + POSTING + INTERACTIES + VRAAG & AANBOD + REGELS + INSTELLINGEN
+    // 🎵 COMPLETE KENNISBANK: ACCOUNT + PROFIEL + FORUM + POSTING + INTERACTIES + VRAAG & AANBOD + REGELS + INSTELLINGEN + TIPS + NETWERKEN
     window.chatsongDB = [
         // ============ REGISTRATIE & ACCOUNT ============
         {
